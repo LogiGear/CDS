@@ -1,8 +1,8 @@
 package com.logigear.crm.admins.model.key;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
 import java.io.Serializable;
+
+import javax.persistence.Column;
 
 public class Role_User_Key implements Serializable{
 	

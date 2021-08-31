@@ -1,37 +1,38 @@
 package com.logigear.crm.employees.service;
 
-import java.util.*;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
+import javax.persistence.EntityManager;
+
 import com.logigear.crm.employees.exception.ResourceNotFoundException;
-import com.logigear.crm.employees.model.*;
-import com.logigear.crm.employees.model.query.QEmployeeDetails;
-import com.logigear.crm.employees.repository.*;
-import com.logigear.crm.employees.response.*;
-import com.logigear.crm.employees.util.FileReaderUtil;
-import com.logigear.crm.employees.util.FileUploadUtil;
-import com.logigear.crm.employees.util.TemporaryLocalStorage;
+import com.logigear.crm.employees.mapper.EmployeeMapper;
 import com.logigear.crm.employees.model.Department;
+import com.logigear.crm.employees.model.EmployeeDetails;
 import com.logigear.crm.employees.model.Project;
+import com.logigear.crm.employees.model.query.QEmployeeDetails;
 import com.logigear.crm.employees.repository.DepartmentRepository;
+import com.logigear.crm.employees.repository.EmployeeRepository;
 import com.logigear.crm.employees.repository.ProjectRepository;
+import com.logigear.crm.employees.repository.UserRepository;
+import com.logigear.crm.employees.response.EmployeeDetailsDTO;
 import com.logigear.crm.employees.response.EmployeeImageResponse;
 import com.logigear.crm.employees.response.EmployeeUpdateRequest;
-import com.logigear.crm.employees.util.*;
+import com.logigear.crm.employees.util.FileReaderUtil;
+import com.logigear.crm.employees.util.FileUploadUtil;
+import com.logigear.crm.employees.util.MessageUtil;
+import com.logigear.crm.employees.util.TemporaryLocalStorage;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.JPQLQuery;
 import com.querydsl.jpa.impl.JPAQuery;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import com.logigear.crm.employees.util.FileReaderUtil;
-import com.logigear.crm.employees.util.FileUploadUtil;
-import com.logigear.crm.employees.util.TemporaryLocalStorage;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-import com.logigear.crm.employees.mapper.EmployeeMapper;
-
-import javax.persistence.EntityManager;
 
 @Service
 public class EmployeeService {

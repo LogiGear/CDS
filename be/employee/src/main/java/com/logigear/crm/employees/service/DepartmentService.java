@@ -1,7 +1,5 @@
 package com.logigear.crm.employees.service;
 
-import com.logigear.crm.employees.model.Department;
-
 import java.util.List;
 
 public interface DepartmentService {

@@ -1,15 +1,18 @@
 package com.logigear.crm.employees.response;
 
+import java.time.Instant;
+import java.util.Set;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.logigear.crm.employees.model.Department;
 import com.logigear.crm.employees.model.EmployeeDetails;
 import com.logigear.crm.employees.model.Project;
-import com.logigear.crm.employees.model.User;
-import lombok.*;
 
-import java.time.Instant;
-import java.util.Date;
-import java.util.Set;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter

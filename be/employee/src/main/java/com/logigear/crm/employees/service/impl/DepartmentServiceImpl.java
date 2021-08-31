@@ -1,13 +1,13 @@
 package com.logigear.crm.employees.service.impl;
 
+import java.util.List;
+
 import com.logigear.crm.employees.exception.ResourceNotFoundException;
-import com.logigear.crm.employees.model.Department;
 import com.logigear.crm.employees.repository.DepartmentRepository;
 import com.logigear.crm.employees.service.DepartmentService;
 import com.logigear.crm.employees.util.MessageUtil;
-import org.springframework.stereotype.Service;
 
-import java.util.List;
+import org.springframework.stereotype.Service;
 
 @Service
 public class DepartmentServiceImpl implements DepartmentService {

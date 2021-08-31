@@ -3,16 +3,20 @@ package com.logigear.crm.employees.controller;
 import java.util.List;
 
 import com.logigear.crm.employees.exception.ResourceNotFoundException;
-import com.logigear.crm.employees.model.User;
-import com.logigear.crm.employees.model.composite.EmployeeDetails_Project;
-import com.logigear.crm.employees.response.*;
-import com.logigear.crm.employees.service.*;
+import com.logigear.crm.employees.model.EmployeeDetails;
+import com.logigear.crm.employees.response.DepartmentResponse;
+import com.logigear.crm.employees.response.DepartmentStructureResponse;
 import com.logigear.crm.employees.response.EmployeeDetailsDTO;
+import com.logigear.crm.employees.response.EmployeeDetailsProjectDTO;
+import com.logigear.crm.employees.response.EmployeeResponse;
+import com.logigear.crm.employees.response.EmployeeUpdateRequest;
+import com.logigear.crm.employees.response.ProjectResponse;
 import com.logigear.crm.employees.service.DepartmentService;
 import com.logigear.crm.employees.service.EmployeeProjectService;
+import com.logigear.crm.employees.service.EmployeeService;
 import com.logigear.crm.employees.service.ProjectService;
-import com.logigear.crm.employees.exception.ResourceNotFoundException;
-import org.modelmapper.ModelMapper;
+import com.logigear.crm.employees.service.UserService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -22,8 +26,12 @@ import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.*;
-import com.logigear.crm.employees.model.EmployeeDetails;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/employees/api/employees")

@@ -1,12 +1,11 @@
 package com.logigear.crm.admins.service;
 
+import java.util.List;
+
 import com.logigear.crm.admins.model.Role;
 import com.logigear.crm.admins.model.RoleName;
 import com.logigear.crm.admins.model.User;
 import com.logigear.crm.admins.payload.UserUpdateRequest;
-
-import java.util.List;
-import java.util.Optional;
 
 public interface UserService {
 	

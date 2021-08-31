@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.logigear.crm.employees.util.FileReaderUtil;
 import com.logigear.crm.employees.util.TemporaryLocalStorage;
-import org.springframework.beans.factory.annotation.Value;
 
 public interface EmployeeStructureResponse {
 

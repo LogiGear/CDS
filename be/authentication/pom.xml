@@ -10,9 +10,9 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.logigear.crm</groupId>
-	<artifactId>career</artifactId>
+	<artifactId>authentication-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>career</name>
+	<name>authentication-service</name>
 	<description>LogiGear CRM Career</description>
 	<properties>
 		<java.version>11</java.version>

@@ -10,9 +10,9 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.logigear.crm</groupId>
-	<artifactId>manager</artifactId>
+	<artifactId>manager-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>manager</name>
+	<name>manager-service</name>
 	<description>Manager service for CDS</description>
 	<properties>
 		<java.version>11</java.version>

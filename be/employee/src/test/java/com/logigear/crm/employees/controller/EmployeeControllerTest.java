@@ -1,49 +1,47 @@
  package com.logigear.crm.employees.controller;
 
 
- import com.logigear.crm.employees.model.Department;
- import com.logigear.crm.employees.model.EmployeeDetails;
- import com.logigear.crm.employees.response.DepartmentResponse;
- import com.logigear.crm.employees.response.DepartmentStructureResponse;
- import com.logigear.crm.employees.response.EmployeeResponse;
- import com.logigear.crm.employees.response.ProjectResponse;
- import com.logigear.crm.employees.security.JwtProvider;
- import com.logigear.crm.employees.service.DepartmentService;
- import com.logigear.crm.employees.service.EmployeeService;
- import com.logigear.crm.employees.service.ProjectService;
- import org.junit.jupiter.api.Test;
- import org.junit.jupiter.api.extension.ExtendWith;
- import org.springframework.beans.factory.annotation.Autowired;
- import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
- import org.springframework.boot.test.context.SpringBootTest;
- import org.springframework.boot.test.mock.mockito.MockBean;
- import org.springframework.core.io.ClassPathResource;
- import org.springframework.core.io.Resource;
- import org.springframework.data.projection.ProjectionFactory;
- import org.springframework.data.projection.SpelAwareProxyProjectionFactory;
- import org.springframework.http.HttpHeaders;
- import org.springframework.http.MediaType;
- import org.springframework.mock.web.MockMultipartFile;
- import org.springframework.security.test.context.support.WithMockUser;
- import org.springframework.test.context.junit.jupiter.SpringExtension;
- import org.springframework.test.web.servlet.MockMvc;
- import org.springframework.test.web.servlet.request.MockMultipartHttpServletRequestBuilder;
- import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
- import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-// import lombok.var;
-
- import javax.persistence.EntityManager;
- import java.io.FileInputStream;
- import java.util.*;
-
- import static org.hamcrest.CoreMatchers.containsString;
  import static org.hamcrest.CoreMatchers.is;
- import static org.hamcrest.Matchers.hasSize;
- import static org.mockito.ArgumentMatchers.any;
- import static org.mockito.BDDMockito.given;
- import static org.mockito.Mockito.when;
- import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
- import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.hamcrest.Matchers.hasSize;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
+
+import com.logigear.crm.employees.model.EmployeeDetails;
+import com.logigear.crm.employees.response.DepartmentResponse;
+import com.logigear.crm.employees.response.DepartmentStructureResponse;
+import com.logigear.crm.employees.response.EmployeeResponse;
+import com.logigear.crm.employees.response.ProjectResponse;
+import com.logigear.crm.employees.security.JwtProvider;
+import com.logigear.crm.employees.service.DepartmentService;
+import com.logigear.crm.employees.service.EmployeeService;
+import com.logigear.crm.employees.service.ProjectService;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.data.projection.ProjectionFactory;
+import org.springframework.data.projection.SpelAwareProxyProjectionFactory;
+import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMultipartHttpServletRequestBuilder;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
  @SpringBootTest
  @ExtendWith(SpringExtension.class)

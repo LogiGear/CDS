@@ -1,13 +1,10 @@
 package com.logigear.crm.admins.payload;
 
-import com.logigear.crm.admins.model.Role;
+import java.util.Set;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import java.util.Set;
 
 @Getter
 @Setter

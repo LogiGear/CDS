@@ -7,26 +7,23 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.time.Instant;
-import java.util.UUID;
+import java.util.NoSuchElementException;
 
+import com.logigear.crm.employees.config.AppProperties;
+import com.logigear.crm.employees.exception.FileException;
 import com.logigear.crm.employees.model.EmployeeDetails;
-import com.logigear.crm.employees.security.JwtProvider;
-import com.logigear.crm.employees.util.MessageQueueAmongClasses;
+import com.logigear.crm.employees.model.File;
 import com.logigear.crm.employees.payload.UpdateStatus;
+import com.logigear.crm.employees.repository.FileRepository;
+import com.logigear.crm.employees.response.FileResponse;
+import com.logigear.crm.employees.security.JwtProvider;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
-
-import com.logigear.crm.employees.config.AppProperties;
-import com.logigear.crm.employees.exception.FileException;
-import com.logigear.crm.employees.model.File;
-import com.logigear.crm.employees.payload.UpdateStatus;
-import com.logigear.crm.employees.repository.FileRepository;
-import com.logigear.crm.employees.response.FileResponse;
-import java.util.NoSuchElementException;
 
 @Service
 public class FileService {

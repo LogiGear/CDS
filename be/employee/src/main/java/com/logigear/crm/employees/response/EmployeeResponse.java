@@ -4,8 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.logigear.crm.employees.util.FileReaderUtil;
 import com.logigear.crm.employees.util.TemporaryLocalStorage;
+
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Autowired;
 
 @Data
 public class EmployeeResponse {

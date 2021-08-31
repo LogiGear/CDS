@@ -1,12 +1,11 @@
 package com.logigear.crm.employees.service.impl;
 
-import com.logigear.crm.employees.repository.DepartmentRepository;
-import com.logigear.crm.employees.repository.ProjectRepository;
-import com.logigear.crm.employees.service.DepartmentService;
-import com.logigear.crm.employees.service.ProjectService;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
+
+import com.logigear.crm.employees.repository.ProjectRepository;
+import com.logigear.crm.employees.service.ProjectService;
+
+import org.springframework.stereotype.Service;
 
 @Service
 public class ProjectServiceImpl implements ProjectService {

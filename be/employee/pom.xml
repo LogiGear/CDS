@@ -10,9 +10,9 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.logigear.crm</groupId>
-	<artifactId>employees</artifactId>
+	<artifactId>employees-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>employees</name>
+	<name>employees-service</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>11</java.version>

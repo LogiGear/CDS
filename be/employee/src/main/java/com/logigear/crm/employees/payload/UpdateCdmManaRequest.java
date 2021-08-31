@@ -1,8 +1,8 @@
 package com.logigear.crm.employees.payload;
 
-import com.logigear.crm.employees.response.*;
-
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 
 @Getter

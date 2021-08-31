@@ -1,8 +1,11 @@
 package com.logigear.crm.manager.service.impl;
 
+import java.util.List;
+
+import javax.persistence.EntityManager;
+
 import com.logigear.crm.manager.exception.ResourceNotFoundException;
 import com.logigear.crm.manager.model.EmployeeDetails;
-import com.logigear.crm.manager.model.RoleName;
 import com.logigear.crm.manager.model.query.QDepartment;
 import com.logigear.crm.manager.model.query.QEmployeeDetails;
 import com.logigear.crm.manager.model.query.QUser;
@@ -19,11 +22,9 @@ import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.JPQLQuery;
 import com.querydsl.jpa.impl.JPAQuery;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.persistence.EntityManager;
-import java.util.List;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {

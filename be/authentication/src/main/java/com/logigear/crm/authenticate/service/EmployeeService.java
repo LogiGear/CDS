@@ -1,24 +1,24 @@
 package com.logigear.crm.authenticate.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ldap.core.AttributesMapper;
-import org.springframework.ldap.core.LdapTemplate;
-import org.springframework.security.ldap.userdetails.LdapUserDetailsImpl;
-import org.springframework.stereotype.Service;
+import static org.springframework.ldap.query.LdapQueryBuilder.query;
+
+import java.util.List;
+import java.util.Optional;
+
+import javax.naming.NamingException;
+import javax.naming.directory.Attributes;
 
 import com.logigear.crm.authenticate.model.EmployeeDetails;
 import com.logigear.crm.authenticate.model.User;
 import com.logigear.crm.authenticate.payload.SignUpRequest;
 import com.logigear.crm.authenticate.repository.EmployeeRepository;
 import com.logigear.crm.authenticate.repository.UserRepository;
-import com.logigear.crm.authenticate.service.impl.UserServiceImpl;
 
-import javax.naming.NamingException;
-import javax.naming.directory.Attributes;
-import java.util.List;
-import java.util.Optional;
-
-import static org.springframework.ldap.query.LdapQueryBuilder.query;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ldap.core.AttributesMapper;
+import org.springframework.ldap.core.LdapTemplate;
+import org.springframework.security.ldap.userdetails.LdapUserDetailsImpl;
+import org.springframework.stereotype.Service;
 
 @Service
 public class EmployeeService {

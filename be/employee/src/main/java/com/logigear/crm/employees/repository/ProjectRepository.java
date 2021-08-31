@@ -1,14 +1,11 @@
 package com.logigear.crm.employees.repository;
 
-import com.logigear.crm.employees.model.Project;
-import org.springframework.data.jpa.repository.JpaRepository;
-
-import java.util.Optional;
-import com.logigear.crm.employees.model.Department;
-import com.logigear.crm.employees.model.Project;
-import org.springframework.data.jpa.repository.JpaRepository;
-
 import java.util.List;
+import java.util.Optional;
+
+import com.logigear.crm.employees.model.Project;
+
+import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ProjectRepository extends JpaRepository<Project, Long> {
     /**

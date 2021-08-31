@@ -1,15 +1,18 @@
 package com.logigear.crm.admins.response;
 
 
-import lombok.*;
-
 import java.time.Instant;
 import java.util.Set;
 
 import com.logigear.crm.admins.model.Department;
 import com.logigear.crm.admins.model.EmployeeDetails;
 import com.logigear.crm.admins.model.Project;
-import com.logigear.crm.admins.model.RoleName;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter

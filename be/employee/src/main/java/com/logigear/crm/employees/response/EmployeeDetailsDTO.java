@@ -3,10 +3,12 @@ package com.logigear.crm.employees.response;
 import java.time.Instant;
 
 import com.logigear.crm.employees.model.Department;
-import com.logigear.crm.employees.model.EmployeeDetails;
-import com.logigear.crm.employees.model.Project;
-import lombok.*;
-import org.springframework.web.multipart.MultipartFile;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter

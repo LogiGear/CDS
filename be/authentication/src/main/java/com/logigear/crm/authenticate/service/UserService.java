@@ -1,16 +1,12 @@
 package com.logigear.crm.authenticate.service;
 
-import javax.validation.Valid;
-
-import org.springframework.security.ldap.userdetails.LdapUserDetailsImpl;
-import org.springframework.web.bind.MethodArgumentNotValidException;
-
 import com.logigear.crm.authenticate.model.User;
 import com.logigear.crm.authenticate.payload.EmailRequest;
-import com.logigear.crm.authenticate.payload.ForgotPasswordRequest;
 import com.logigear.crm.authenticate.payload.LoginRequest;
 import com.logigear.crm.authenticate.payload.ResetPasswordRequest;
 import com.logigear.crm.authenticate.payload.SignUpRequest;
+
+import org.springframework.security.ldap.userdetails.LdapUserDetailsImpl;
 
 public interface UserService {
 	
