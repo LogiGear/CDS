@@ -1,0 +1,56 @@
+.employee-detail__form-wrapper {
+    margin-bottom: 30px;
+    border: 1px solid lightgray;
+    padding: 70px 100px;
+    border-radius: 5px;
+}
+
+.employee-detail__general-info {
+    padding: 0 100px;
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+
+.employee-detail h4.ant-typography,
+.employee-detail .ant-typography h4 {
+    font-size: var(--font-size-extra-large);
+}
+
+/* AVATAR SECTION */
+.employee-detail .avatar {
+    position: relative;
+}
+.employee-detail .avatar__edit-button {
+    color: var(--primary-btn-bg-color);
+    cursor: pointer;
+    position: absolute;
+    width: 100%;
+    text-align: center;
+}
+
+/* TAB */
+.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn{
+    color: var(--primary-btn-bg-color);
+
+}
+
+.ant-tabs-tab-btn:hover {
+    color: var(--primary-btn-bg-color);
+   
+}
+
+.ant-tabs-ink-bar {
+    position: absolute;
+    background: var(--primary-btn-bg-color);
+    pointer-events: none;
+ }
+
+@media screen and (max-width: 768px) {
+    .employee-detail__form-wrapper {
+        padding: 70px 20px;
+    }
+
+    .employee-detail__general-info {
+        padding: 0 20px;
+    }
+}

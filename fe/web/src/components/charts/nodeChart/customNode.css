@@ -1,0 +1,96 @@
+/* .orgchart.myChart {
+        background-image: linear-gradient(
+            90deg,
+            rgba(33, 90, 136, 0.15) 10%,
+            rgba(0, 0, 0, 0) 10%
+          ),
+          linear-gradient(rgba(33, 90, 136, 0.15) 10%, rgba(0, 0, 0, 0) 10%) !important;
+      } */
+      .orgchart > ul > li > ul li > .oc-node::before {
+        position: absolute;
+        top: -12px;
+      }
+      .orgchart.myChart > ul > li > ul li::before {
+        border-top-color: var(--org-chart-bg-color);
+      }
+      
+      .orgchart.myChart > ul > li > ul li .oc-node::before,
+      .orgchart.myChart ul li .oc-node:not(:only-child)::after {
+        background-color: var(--org-chart-bg-color);
+        height: 18px;
+       
+      }
+
+      
+        /* Node
+        width:138px;
+        height: 86px; */
+     
+        .node{
+          width: 138px;
+          height: 86px;
+          border-radius: 5px;
+          -webkit-border-radius: 5px;
+          -moz-border-radius: 5px;
+          -ms-border-radius: 5px;
+          -o-border-radius: 5px;
+}
+
+      .orgchart.myChart .oc-node .node__department {
+        box-sizing: border-box;
+        color: rgb(255, 255, 255);
+        background-color: var(--org-chart-bg-color);
+        width: 138px; 
+        height: 38px;
+        display: flex;
+        font-weight: bold;
+        justify-content: center;
+        align-items: center;  
+       
+        border: 2px solid var(--org-chart-bg-color);
+        border-top-left-radius: 3px;
+        border-top-right-radius: 3px;
+        text-align: center;
+      }
+      .orgchart.myChart .oc-node .node__departmentFull {
+        box-sizing: border-box;
+        color: rgb(255, 255, 255);
+        background-color: var(--org-chart-bg-color);
+        width: 138px;
+        height: 86px;
+        display: flex;
+        font-weight: bold;
+        justify-content: center;
+        align-items: center;
+        border: 2px solid var(--org-chart-bg-color);
+        border-radius: 3px;
+        text-align: center;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        -ms-border-radius: 3px;
+        -o-border-radius: 3px;
+}
+      .orgchart.myChart .oc-node .node__manager {
+        box-sizing: border-box;
+        background-color:white;
+        border: 2px solid var(--org-chart-bg-color);
+        color: black;
+        width: 138px;
+       
+        display: flex;
+	      flex-direction: row;
+        justify-content: start;
+      }
+      .orgchart.myChart .oc-node .node__manager .node__manager--avatar {
+        flex:1;
+        padding:5px;
+      }
+      .orgchart.myChart .oc-node .node__manager .node__manager--name {
+        flex:3;
+        display: flex;
+        justify-content: start;
+        font-weight: bold;
+        align-items: center; 
+      }
+      
+     

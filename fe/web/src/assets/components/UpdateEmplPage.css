@@ -1,0 +1,45 @@
+.site-layout-content {
+    /* min-height: 300px;
+    padding-top: 100px;
+    background: #ffff */
+    width: auto;
+   
+    padding-left:250px;
+    padding-right:250px;
+    background: #ffff;
+    /* border: 1px solid black; */
+    margin: auto;
+    
+  }
+
+/* label form */
+.ant-form-item-label > label{
+  font-weight: bold;
+}
+h4.ant-typography, .ant-typography h4 {
+  font-weight: bold;
+}
+  
+/* responsive */
+  @media screen and (max-width: 515px){
+    .site-layout-content {
+     
+      padding-left:10px;
+      padding-right:10px;
+    }
+  }
+  /* @media screen and (max-width: 715px){
+    .site-layout-content {
+      padding-left:50px;
+      padding-right:50px;
+      margin: auto;
+    }
+  } */
+  @media screen and (max-width: 1000px){
+    .site-layout-content {
+      padding-left:50px;
+      padding-right:50px;
+     
+    }
+  }
+  

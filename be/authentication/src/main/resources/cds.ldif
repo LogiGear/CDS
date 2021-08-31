@@ -1,0 +1,171 @@
+dn: dc=logigear,dc=org
+objectClass: top
+objectClass: domain
+objectClass: extensibleObject
+dc: logigear
+
+dn: ou=people,dc=logigear,dc=org
+objectClass: top
+objectClass: organizationalUnit
+ou: people
+
+dn: ou=groups,dc=logigear,dc=org
+objectClass: top
+objectClass: organizationalUnit
+ou: groups
+
+dn: uid=admin,ou=people,dc=logigear,dc=org
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+cn: Admin
+sn: Admin
+uid: Admin
+mail: admin@gmail.com
+ou: people
+userPassword: $2a$10$3u3M0GIcPQ05xLCmi/lX7e8TUdEqWUVircpELjkqUrbVnlxpU9OVm
+
+dn: uid=thinh,ou=people,dc=logigear,dc=org
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+cn: Nguyen Phuc Thinh
+sn: Nguyen Phuc
+uid: thinh
+mail: nguyenphucthinhdh15dt@gmail.com
+ou: people
+userPassword: $2a$10$3u3M0GIcPQ05xLCmi/lX7e8TUdEqWUVircpELjkqUrbVnlxpU9OVm
+
+dn: uid=thanh,ou=people,dc=logigear,dc=org
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+cn: Tran Bao Thanh
+sn: Tran Bao
+uid: thanh
+mail: thanhtran.tbt@gmail.com
+ou: people
+userPassword: $2a$10$3u3M0GIcPQ05xLCmi/lX7e8TUdEqWUVircpELjkqUrbVnlxpU9OVm
+
+dn: uid=van,ou=people,dc=logigear,dc=org
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+cn: Tran Vi
+sn: Tran Vi
+uid: van
+mail: vivantran2000@gmail.com
+ou: people
+userPassword: $2a$10$PtfHI74gZhTZvkypvJ1/4OSwvrZ3r4r03.9KNK/W1J1qXSg81kxCi
+
+dn: uid=bao,ou=people,dc=logigear,dc=org
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+cn: Banhsbao
+sn: Banh
+uid: bao
+mail: baohcse141194@gmail.com
+ou: people
+userPassword: $2a$10$3u3M0GIcPQ05xLCmi/lX7e8TUdEqWUVircpELjkqUrbVnlxpU9OVm
+
+dn: uid=huy,ou=people,dc=logigear,dc=org
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+cn: Nguyen Tuan Huy
+sn: Nguyen Tuan
+uid: huy
+mail: tuanhuy030799@gmail.com
+ou: people
+userPassword: $2a$10$3u3M0GIcPQ05xLCmi/lX7e8TUdEqWUVircpELjkqUrbVnlxpU9OVm
+
+dn: uid=tam,ou=people,dc=logigear,dc=org
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+cn: Nguyen Le Thanh Tam
+sn: Nguyen Le
+uid: do1
+mail: tamnlt2000@gmail.com
+ou: people
+userPassword: $2a$10$3u3M0GIcPQ05xLCmi/lX7e8TUdEqWUVircpELjkqUrbVnlxpU9OVm
+
+dn: uid=phu,ou=people,dc=logigear,dc=org
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+cn: Nguyen Hong Phu
+sn: Nguyen Hong
+uid: phu
+mail: phunh713@gmail.com
+ou: people
+userPassword: $2a$10$3u3M0GIcPQ05xLCmi/lX7e8TUdEqWUVircpELjkqUrbVnlxpU9OVm
+
+dn: uid=danh,ou=people,dc=logigear,dc=org
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+cn: Nguyen Tran Thanh Danh
+sn: Nguyen Tran
+uid: danh
+mail: danhjustin147@gmail.com
+ou: people
+userPassword: $2a$10$3u3M0GIcPQ05xLCmi/lX7e8TUdEqWUVircpELjkqUrbVnlxpU9OVm
+
+dn: uid=nghia,ou=people,dc=logigear,dc=org
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+cn: Dinh Chanh Nghia
+sn: Dinh Chanh
+uid: nghia
+mail: dinhchanhnghia2409@gmail.com
+ou: people
+userPassword: $2a$10$3u3M0GIcPQ05xLCmi/lX7e8TUdEqWUVircpELjkqUrbVnlxpU9OVm
+
+dn: uid=tuc,ou=people,dc=logigear,dc=org
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+cn: Nguyen Gia Tuc
+sn: Nguyen Gia
+uid: tuc
+mail: giatuc2003@yahoo.com
+ou: people
+userPassword: $2a$10$3u3M0GIcPQ05xLCmi/lX7e8TUdEqWUVircpELjkqUrbVnlxpU9OVm
+
+dn: uid=cdm,ou=people,dc=logigear,dc=org
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+cn: CDM
+sn: CDM
+uid: CDM
+mail: cdm@gmail.com
+ou: people
+userPassword: $2a$10$3u3M0GIcPQ05xLCmi/lX7e8TUdEqWUVircpELjkqUrbVnlxpU9OVm
+
+dn: uid=manager,ou=people,dc=logigear,dc=org
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+cn: Manager
+sn: Manager
+uid: Manager
+mail: manager@gmail.com
+ou: people
+userPassword: $2a$10$3u3M0GIcPQ05xLCmi/lX7e8TUdEqWUVircpELjkqUrbVnlxpU9OVm

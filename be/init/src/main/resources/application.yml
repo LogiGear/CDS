@@ -1,0 +1,31 @@
+server:
+    port: 8080 # Template - Change port
+    error:
+        include-message: always
+        include-binding-errors: always
+        include-stacktrace: ON_TRACE_PARAM
+        include-exception: true
+spring:
+    application:
+        name: cdo-init # Template - Change this value to yours microservices name
+    datasource: # Template - Change datasource if needed
+        password: Abcd1234
+        url: jdbc:postgresql://localhost:5432/postgres
+        username: postgres
+    jpa: # Template - Change dialect to yours current database
+        hibernate:
+            ddl-auto: create
+        properties:
+            hibernate:
+                dialect: org.hibernate.dialect.PostgreSQLDialect
+    messages:
+        basename: messages
+    servlet:
+        multipart:
+            enabled: true
+            file-size-threshold: 2KB
+            max-file-size: 200MB
+            max-request-size: 215MB
+reflectoring:
+    trace: true
+crm:

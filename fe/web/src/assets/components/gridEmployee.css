@@ -1,0 +1,11 @@
+.cardEmployee:hover{
+        border: solid 0.5px var(--sider-bg-color);;
+       
+       
+}
+.boxInfo{
+        border-left: 3px solid red;
+}
+.boxInfo .ant-typography{
+        width: 100%;
+}
