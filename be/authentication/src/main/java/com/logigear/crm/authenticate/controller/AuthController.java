@@ -1,6 +1,10 @@
 package com.logigear.crm.authenticate.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import java.net.URI;
+import java.util.UUID;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -9,26 +13,33 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.ldap.userdetails.LdapUserDetailsImpl;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-import com.logigear.crm.authenticate.model.EmployeeDetails;
 import com.logigear.crm.authenticate.model.User;
 import com.logigear.crm.authenticate.model.UserStatus;
-import com.logigear.crm.authenticate.payload.*;
+import com.logigear.crm.authenticate.payload.EmailRequest;
+import com.logigear.crm.authenticate.payload.ForgotPasswordRequest;
+import com.logigear.crm.authenticate.payload.ForgotPasswordResponse;
+import com.logigear.crm.authenticate.payload.LoginRequest;
+import com.logigear.crm.authenticate.payload.ResetPasswordRequest;
+import com.logigear.crm.authenticate.payload.SignUpRequest;
+import com.logigear.crm.authenticate.payload.UserResponse;
 import com.logigear.crm.authenticate.security.JwtProvider;
-import com.logigear.crm.authenticate.service.EmployeeService;
 import com.logigear.crm.authenticate.service.MailService;
 import com.logigear.crm.authenticate.service.UserService;
 import com.logigear.crm.authenticate.util.AppConstants;
 
-import javax.validation.Valid;
-import java.net.URI;
-import java.util.UUID;
+import lombok.RequiredArgsConstructor;
 
 @RestController
-// @CrossOrigin
-@RequestMapping("/authentication/api/auth")
+@RequestMapping("authentication/api/auth")
+@RequiredArgsConstructor
 public class AuthController {
 
 	@Value("${spring.server.address.gateway}")
@@ -36,44 +47,24 @@ public class AuthController {
 	@Value("${spring.server.address.client}")
 	private String CLIENT_ADDRESS;
 
-	private final AuthenticationManager authenticationManager;
-	private final JwtProvider tokenProvider;
-	private final UserService userService;
-	private final MailService mailService;
-	private final EmployeeService employeeService;
-
-	@Autowired
-	public AuthController(AuthenticationManager authenticationManager, JwtProvider tokenProvider,
-			UserService userService, MailService mailService, EmployeeService employeeService) {
-		this.authenticationManager = authenticationManager;
-		this.tokenProvider = tokenProvider;
-		this.userService = userService;
-		this.mailService = mailService;
-		this.employeeService = employeeService;
-	}
+    private final AuthenticationManager authenticationManager;
+    private final JwtProvider tokenProvider;
+    private final UserService userService;
+    private final MailService mailService;
+  
 
 	@PostMapping("signin")
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest req) {
-		Authentication authentication = authenticationManager
-				.authenticate(new UsernamePasswordAuthenticationToken(req.getEmail(), req.getPassword()));
-		SecurityContextHolder.getContext().setAuthentication(authentication);
+		Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                		req.getEmail(),
+                		req.getPassword()
+                )
+        );
+        SecurityContextHolder.getContext().setAuthentication(authentication);
 
-		LdapUserDetailsImpl ldapUser = (LdapUserDetailsImpl) authentication.getPrincipal();
-		User user = userService.findUserByEmail(ldapUser.getUsername());
-		if (user == null) {
-			userService.createUserFromLdapUser(ldapUser, req.getPassword());
-		} else {
-			userService.updateUserFromLdapUser(ldapUser, req.getPassword());
-		}
-
-		user = userService.findUserByEmail(ldapUser.getUsername());
-
-		if (!employeeService.existEmployeeById(user.getId())) {
-			employeeService.createEmployeeFromLdapUser(ldapUser);
-		} else {
-			employeeService.updateEmployeeFromLdapUser(ldapUser);
-		}
-
+        User user = (User)authentication.getPrincipal();
+		
 		String token = tokenProvider.generateToken(user);
 		UserResponse userRes = new UserResponse(user);
 		userRes.setToken(token);

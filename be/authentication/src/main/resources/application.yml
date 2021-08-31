@@ -66,7 +66,9 @@ crm:
         expiration-millis: 864000000
         secret: JWTLOGIGEAR_CRM_SuperSecretKey
         short-lived-millis: 120000
-
+ldap:
+    urls: ldap://lgsg-dc01:389
+    base-dn: dc=logigear,dc=com
 # Deployment_Zone
 #spring:
 #    main:
@@ -128,3 +130,6 @@ crm:
 #        expiration-millis: 864000000
 #        secret: JWTLOGIGEAR_CRM_SuperSecretKey
 #        short-lived-millis: 120000
+#ldap:
+#    urls: ldap://lgsg-dc01:389
+#    base-dn: dc=logigear,dc=com

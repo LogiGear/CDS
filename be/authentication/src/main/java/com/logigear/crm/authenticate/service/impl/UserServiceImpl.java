@@ -1,20 +1,24 @@
 package com.logigear.crm.authenticate.service.impl;
 
-import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.Collections;
+import java.util.Optional;
+import java.util.UUID;
+
+import javax.transaction.Transactional;
+
 import org.springframework.http.HttpStatus;
-import org.springframework.ldap.core.AttributesMapper;
-import org.springframework.ldap.core.LdapTemplate;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.ldap.userdetails.LdapUserDetailsImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.logigear.crm.authenticate.exception.AppException;
 import com.logigear.crm.authenticate.exception.UniqueEmailException;
+import com.logigear.crm.authenticate.model.LdapUser;
 import com.logigear.crm.authenticate.model.Role;
 import com.logigear.crm.authenticate.model.RoleName;
 import com.logigear.crm.authenticate.model.User;
@@ -28,36 +32,19 @@ import com.logigear.crm.authenticate.repository.UserRepository;
 import com.logigear.crm.authenticate.service.EmployeeService;
 import com.logigear.crm.authenticate.service.UserService;
 
-import javax.naming.NamingException;
-import javax.naming.directory.Attributes;
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
-import java.util.*;
-
-import static org.springframework.ldap.query.LdapQueryBuilder.query;
+import lombok.RequiredArgsConstructor;
 
 @Service
-@NoArgsConstructor
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
 	private final static String USER_NOT_FOUND_MSG = "User with email %s not found";
 	private final static String TOKEN_NOT_FOUND = "Token already expired or does not exist";
 	
-	private UserRepository userRepository;
-	private PasswordEncoder passwordEncoder;
-	private RoleRepository roleRepository;
-	@Autowired
-	private EmployeeService employeeService;
-	@Autowired
-	private LdapTemplate ldapTemplate;
-
-	@Autowired
-	public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder,
-						   RoleRepository roleRepository) {
-		this.userRepository = userRepository;
-		this.passwordEncoder = passwordEncoder;
-		this.roleRepository = roleRepository;
-	}
+	private final UserRepository userRepository;
+	private final PasswordEncoder passwordEncoder;
+	private final RoleRepository roleRepository;
+	private final EmployeeService employeeService;
 
 	@Override
 	public User signup(SignUpRequest req) {
@@ -127,8 +114,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void save(User user) throws UniqueEmailException{
-		userRepository.save(user);
+	public User save(User user) throws UniqueEmailException{
+		return userRepository.save(user);
 	}
 
 	@PreAuthorize("hasAuthority('ADMIN')")
@@ -164,16 +151,27 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void createUserFromLdapUser(LdapUserDetailsImpl ldapUser, String password) {
-		User user = new User();
-		user.setEmail(ldapUser.getUsername());
-		User userFromLdif = this.getLdapUserByUid(this.getUidFromDn(ldapUser.getDn()));
-		if (userFromLdif != null) {
-			user.setName(userFromLdif.getName());
+	@Transactional
+	public User save(LdapUser ldapUSer) {
+		Optional<User> userOptional = userRepository.findByEmail(ldapUSer.getEmail());
+		User user;
+		if (userOptional.isPresent()) {
+			user = userOptional.get();
+			user = updateExistingUser(user, ldapUSer);
 		} else {
-			user.setName(ldapUser.getUsername().replaceAll("(@.*)", "").trim());
+			user = registerNewUser(ldapUSer);
 		}
-		user.setPassword(passwordEncoder.encode(password));
+
+		employeeService.save(user, ldapUSer);
+		return user;
+	}
+
+	
+	private User registerNewUser(LdapUser ldapUSer) {
+		User user = new User();
+		user.setEmail(ldapUSer.getEmail());
+		user.setName(ldapUSer.getDisplayName());
+		user.setPassword(passwordEncoder.encode(ldapUSer.getPassword()));
 		user.setStatus(UserStatus.ACTIVATED);
 		user.setDeleted(false);
 		user.setExpiredAt(Instant.now());
@@ -181,40 +179,12 @@ public class UserServiceImpl implements UserService {
 				.orElseThrow(() -> new AppException("User Role not set."));
 		user.setRoles(Collections.singleton(userRole));
 
-		this.save(user);
+		return userRepository.save(user);
 	}
 
-	@Override
-	public void updateUserFromLdapUser(LdapUserDetailsImpl ldapUser, String password) {
-		User user = this.findUserByEmail(ldapUser.getUsername());
-
-		user.setPassword(passwordEncoder.encode(password));
-		User userFromLdif = this.getLdapUserByUid(this.getUidFromDn(ldapUser.getDn()));
-		if (userFromLdif != null) {
-			user.setName(userFromLdif.getName());
-		} else {
-			user.setName(ldapUser.getUsername().replaceAll("(@.*)", "").trim());
-		}
-
-		this.save(user);
-	}
-
-	private class UserAttributeMapper implements AttributesMapper<User> {
-		@Override
-		public User mapFromAttributes(Attributes attributes) throws NamingException {
-			User user = new User();
-			user.setName((String) attributes.get("cn").get());
-			return user;
-		}
-	}
-
-	private User getLdapUserByUid(String uid) {
-		List<User> ldapUsers = ldapTemplate.search(query().where("uid").is(uid), new UserAttributeMapper());
-		return ((null != ldapUsers && !ldapUsers.isEmpty()) ? ldapUsers.get(0) : null);
-	}
-
-	private String getUidFromDn(String dn) {
-		String uid = dn.split(",")[0];
-		return uid.substring(4);
+	private User updateExistingUser(User existingUser, LdapUser ldapUSer) {
+		existingUser.setName(ldapUSer.getDisplayName());
+		existingUser.setPassword(passwordEncoder.encode(ldapUSer.getPassword()));
+		return userRepository.save(existingUser);
 	}
 }

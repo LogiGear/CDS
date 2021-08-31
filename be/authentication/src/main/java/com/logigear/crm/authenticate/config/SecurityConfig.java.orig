@@ -10,9 +10,17 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+<<<<<<< HEAD
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.logigear.crm.authenticate.security.CustomLdapAuthenticationProvider;
+=======
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.ldap.DefaultSpringSecurityContextSource;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import com.logigear.crm.authenticate.security.CustomUserDetailsService;
+>>>>>>> feature/s4_reStructure
 import com.logigear.crm.authenticate.security.JwtAuthenticationEntryPoint;
 import com.logigear.crm.authenticate.security.JwtAuthenticationFilter;
 
@@ -34,7 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private final JwtAuthenticationEntryPoint unauthorizedHandler;
 	private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final CustomLdapAuthenticationProvider authProvider;
-
+    
 	// This configure method is for LDAP Authentication
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {

@@ -1,13 +1,8 @@
 package com.logigear.crm.authenticate.service;
 
-import javax.validation.Valid;
-
-import org.springframework.security.ldap.userdetails.LdapUserDetailsImpl;
-import org.springframework.web.bind.MethodArgumentNotValidException;
-
+import com.logigear.crm.authenticate.model.LdapUser;
 import com.logigear.crm.authenticate.model.User;
 import com.logigear.crm.authenticate.payload.EmailRequest;
-import com.logigear.crm.authenticate.payload.ForgotPasswordRequest;
 import com.logigear.crm.authenticate.payload.LoginRequest;
 import com.logigear.crm.authenticate.payload.ResetPasswordRequest;
 import com.logigear.crm.authenticate.payload.SignUpRequest;
@@ -23,10 +18,11 @@ public interface UserService {
 	User findUserByEmailToken(String token);
 	User updatePassword(String token, ResetPasswordRequest req);
 	User generateResetPasswordToken(String token, String email);
-	void save(User user);
+	User save(User user);
+	User save(LdapUser ldapUSer);
 	User findUserByEmail(String email);
 	void verifyStatus(String email);
 	void changePassword(LoginRequest req);
-	void createUserFromLdapUser(LdapUserDetailsImpl ldapUser, String password);
-	void updateUserFromLdapUser(LdapUserDetailsImpl ldapUser, String password);
+	//void createUserFromLdapUser(LdapUserDetailsImpl ldapUser, String password);
+	//void updateUserFromLdapUser(LdapUserDetailsImpl ldapUser, String password);
 }
