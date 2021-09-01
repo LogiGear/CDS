@@ -12,7 +12,7 @@ DIR_ADMIN="be/admin"
 DIR_MANAGER="be/manager"
 #DockerHub Tags
 TAG_VERSION="latest"
-USERHUB="doquoccuong84"
+USERHUB="#YourDockerHubAccount#"
 
 #Backend-Services
 
