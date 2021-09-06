@@ -11,14 +11,6 @@ spring:
         allow-bean-definition-overriding: true
     application:
         name: cdo-aas
-    server:
-        address:
-            gateway: localhost:5000
-            client: localhost:3000
-    datasource:
-        password: Abcd1234
-        url: jdbc:postgresql://localhost:5432/postgres
-        username: postgres
     jpa:
         hibernate:
         #            ddl-auto: create
@@ -66,65 +58,25 @@ crm:
         expiration-millis: 864000000
         secret: JWTLOGIGEAR_CRM_SuperSecretKey
         short-lived-millis: 120000
-
-# Deployment_Zone
-#spring:
-#    main:
-#        allow-bean-definition-overriding: true
-#    application:
-#        name: cdo-aas
-#    server:
-#        address:
-#            gateway: ${GATEWAY_HOST}
-#            client: ${CLIENT_HOST}
-#    datasource:
-#        password: ${POSTGRES_PW}
-#        url: jdbc:postgresql://${POSTGRES_HOST}:5432/${POSTGRES_DB}
-#        username: ${POSTGRES_UN}
-#    jpa:
-#        hibernate:
-#        #            ddl-auto: create
-#        properties:
-#            hibernate:
-#                dialect: org.hibernate.dialect.PostgreSQLDialect
-#    mail:
-#        host: smtp.gmail.com
-#        port: 587
-#        username: SprintOneIntern@gmail.com
-#        password: sprintoneinternpassword
-#        properties:
-#            mail:
-#                debug: false
-#                transport:
-#                    protocol: smtp
-#                smtp:
-#                    auth: true
-#                    connectiontimeout: 5000
-#                    starttls:
-#                        enable: true
-#                    ssl:
-#                        trust: smtp.gmail.com
-#                    timeout: 5000
-#                    writetimeout: 5000
-#    servlet:
-#        multipart:
-#            enabled: true
-#            file-size-threshold: 2KB
-#            max-file-size: 200MB
-#            max-request-size: 215MB
-#    ldap:
-#        embedded:
-#            ldif: classpath:cds.ldif
-#            base-dn: dc=logigear,dc=org
-#            port: 10389
-#    reflectoring:
-#        trace: true
-#crm:
-#    admin:
-#        email: sti2k.hai.ly@gmail.com
-#        name: admin
-#        password: 12345678
-#    jwt:
-#        expiration-millis: 864000000
-#        secret: JWTLOGIGEAR_CRM_SuperSecretKey
-#        short-lived-millis: 120000
+---
+spring:
+    profiles: dev
+    server:
+        address:
+            gateway: localhost:5000
+            client: localhost:3000
+    datasource:
+        password: Abcd1234
+        url: jdbc:postgresql://localhost:5432/postgres
+        username: postgres
+---
+spring:
+    profiles: deployment
+    server:
+        address:
+            gateway: ${GATEWAY_HOST}
+            client: ${CLIENT_HOST}
+    datasource:
+        password: ${POSTGRES_PW}
+        url: ${POSTGRES_URL}
+        username: ${POSTGRES_UN}

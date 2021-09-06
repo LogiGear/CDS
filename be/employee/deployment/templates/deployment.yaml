@@ -52,10 +52,10 @@ spec:
             value: {{ .Values.env.postgresPW | quote}}
           - name: POSTGRES_UN
             value: {{ .Values.env.postgresUN | quote}}
-          - name: POSTGRES_HOST
-            value: {{ .Values.env.postgresHost | quote}}
-          - name: POSTGRES_DB
-            value: {{ .Values.env.postgrestDB | quote}}
+          - name: POSTGRES_URL
+            value: {{ .Values.env.postgresURL | quote}}
+          - name: SPRING_PROFILES_ACTIVE
+            value: {{ .Values.env.curent_ENV | quote}}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

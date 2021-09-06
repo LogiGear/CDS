@@ -62,12 +62,12 @@ ingress:
   #    hosts:
   #      - chart-example.local
 env:
-  postgresPW: Abcd1234
-  postgresUN: postgres
-  postgresHost: postgresql-statefull
-  postgrestDB: postgres
-  gatewayHost:
-  clientHost:
+  postgresPW: password
+  postgresUN: username
+  postgresURL: database_url
+  curent_ENV: deployment
+  gatewayHost: 
+  clientHost: 
 resources:
   {}
   # We usually recommend not to specify default resources and to leave this as a conscious

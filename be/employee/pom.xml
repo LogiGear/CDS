@@ -248,7 +248,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
-		<finalName>employees-service</finalName>
+		<finalName>employee-service</finalName>
 	</build>
 
 </project>

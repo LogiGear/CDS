@@ -5,7 +5,6 @@ server:
     include-binding-errors: always
     include-stacktrace: ON_TRACE_PARAM
     include-exception: true
-# Dev_Zone
 spring:
  application:
    name: cdo-employees
@@ -18,10 +17,6 @@ spring:
      role: ADMIN,MANAGER,CDM
    user:
      role: ADMIN,MANAGER,CDM,USER,EMPLOYEE
- datasource:
-   password: Abcd1234
-   url: jdbc:postgresql://localhost:5432/postgres
-   username: postgres
  jpa:
    hibernate:
    #ddl-auto: create
@@ -48,46 +43,17 @@ crm:
    secret: JWTLOGIGEAR_CRM_SuperSecretKey
    short-lived-millis: 120000
  upload-dir: ./file
-# Deployment_Zone
-#spring:
-#  application:
-#    name: cdo-employees
-#  authorization:
-#    admin:
-#      role: ADMIN
-#    manager:
-#      role: ADMIN,MANAGER
-#    cdm:
-#      role: ADMIN,MANAGER,CDM
-#    user:
-#      role: ADMIN,MANAGER,CDM,USER,EMPLOYEE
-#  datasource:
-#    password: ${POSTGRES_PW}
-#    url: jdbc:postgresql://${POSTGRES_HOST}:5432/${POSTGRES_DB}
-#    username: ${POSTGRES_UN}
-#  jpa:
-#    hibernate:
-#    #ddl-auto: create
-#    properties:
-#      hibernate:
-#        dialect: org.hibernate.dialect.PostgreSQLDialect
-#  messages:
-#    basename: messages
-#  servlet:
-#    multipart:
-#      enabled: true
-#      file-size-threshold: 2KB
-#      max-file-size: 200MB
-#      max-request-size: 215MB
-#reflectoring:
-#  trace: true
-#crm:
-#  admin:
-#    email: sti2k.hai.ly@gmail.com
-#    name: admin
-#    password: 12345678
-#  jwt:
-#    expiration-millis: 864000000
-#    secret: JWTLOGIGEAR_CRM_SuperSecretKey
-#    short-lived-millis: 120000
-#  upload-dir: ./file
+---
+spring:
+    profiles: dev
+    datasource:
+        password: Abcd1234
+        url: jdbc:postgresql://localhost:5432/postgres
+        username: postgres
+---
+spring:
+    profiles: deployment
+    datasource:
+        password: ${POSTGRES_PW}
+        url: ${POSTGRES_URL}
+        username: ${POSTGRES_UN}
