@@ -1,6 +1,20 @@
+echo "Building All Service"
+for i in "$@"; do
+  case $i in
+    -t=*|--tagversion=*)
+      TAG_VERSION="${i#*=}"
+      shift
+      ;;
+    -u=*|--userhub=*)
+      USERHUB="${i#*=}"
+      shift
+      ;;
+    *)
+      ;;
+  esac
+done
+echo "Current Using: $USERHUB - $TAG_VERSION"
 echo "Deploy All Service"
-USERHUB="banhsbao"
-TAG_VERSION="latest"
 cd ..
 helm install postgresql deployment/postgresql/
 cd be/authentication
@@ -15,6 +29,9 @@ cd ..
 cd manager
 .  HelmAction.sh -u=$USERHUB -t=$TAG_VERSION
 cd ../..
-cd fe
+cd fe/web
 .  HelmAction.sh -u=$USERHUB -t=$TAG_VERSION
-cd deployment 
+cd ../..
+cd deployment
+echo "Press any key to close"
+read junk

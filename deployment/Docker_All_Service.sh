@@ -1,6 +1,19 @@
 echo "Building All Service"
-USERHUB="banhsbao"
-TAG_VERSION="latest"
+for i in "$@"; do
+  case $i in
+    -t=*|--tagversion=*)
+      TAG_VERSION="${i#*=}"
+      shift
+      ;;
+    -u=*|--userhub=*)
+      USERHUB="${i#*=}"
+      shift
+      ;;
+    *)
+      ;;
+  esac
+done
+echo "Current Using: $USERHUB - $TAG_VERSION"
 cd ..
 cd be
 cd authentication
@@ -15,6 +28,8 @@ cd ..
 cd manager/
 . DockerAction.sh -u=$USERHUB -t=$TAG_VERSION
 cd ../..
-cd fe
+cd fe/web
 . DockerAction.sh -u=$USERHUB -t=$TAG_VERSION
-cd deployment
+cd ../..
+echo "Press any key to close"
+read junk
