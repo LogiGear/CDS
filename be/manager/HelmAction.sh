@@ -1,9 +1,20 @@
+for i in "$@"; do
+  case $i in
+    -t=*|--tagversion=*)
+      IMAGE_TAG="${i#*=}"
+      shift
+      ;;
+    -u=*|--userhub=*)
+      USERHUB="${i#*=}"
+      shift
+      ;;
+    *)
+      ;;
+  esac
+done
+echo "Current Using: $USERHUB - $IMAGE_TAG"
 # Name of service
-SERVICE_NAME="authentication-service"
-# Docker_Hub Username
-USER="user"
-# Tag version of Docker Image
-IMAGE_TAG="latest"
+SERVICE_NAME="manager-service"
 # Tag version of Helm Chart (Deployment)
 HELM_TAG="latest"
 # Curent Enviroment [Dev/ Deployment]
@@ -11,7 +22,7 @@ CURENT_ENV="deployment"
 # Service Enviroments
 postgresPW="Abcd1234"
 postgresUN="postgres"
-postgresURL="jdbc:postgresql://postgres:5432/postgres"
+postgresURL="jdbc:postgresql://postgresql:5432/postgres"
 # ======================================
 IMAGE_REPOSITORY="$USER/$SERVICE_NAME"
 echo "Using Image: $IMAGE_REPOSITORY"

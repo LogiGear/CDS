@@ -1,5 +1,5 @@
 # Name of service
-SERVICE_NAME="authentication-service"
+SERVICE_NAME="cdo-webclient"
 # Docker_Hub Username
 USER="banhsbao"
 # Tag version of Docker Image

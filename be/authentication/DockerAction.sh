@@ -1,5 +1,18 @@
-TAG_VERSION="latest"
-USERHUB="user"
+for i in "$@"; do
+  case $i in
+    -t=*|--tagversion=*)
+      TAG_VERSION="${i#*=}"
+      shift
+      ;;
+    -u=*|--userhub=*)
+      USERHUB="${i#*=}"
+      shift
+      ;;
+    *)
+      ;;
+  esac
+done
+echo "Current Using: $USERHUB - $TAG_VERSION"
 SERVICE_NAME="authentication-service"
 EXPOSE_PORT=5001
 echo "Build Docker image: $SERVICE_NAME"
