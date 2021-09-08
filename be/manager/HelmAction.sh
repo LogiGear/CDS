@@ -24,7 +24,7 @@ postgresPW="Abcd1234"
 postgresUN="postgres"
 postgresURL="jdbc:postgresql://postgresql:5432/postgres"
 # ======================================
-IMAGE_REPOSITORY="$USER/$SERVICE_NAME"
+IMAGE_REPOSITORY="$USERHUB/$SERVICE_NAME"
 echo "Using Image: $IMAGE_REPOSITORY"
 echo "Deploying $SERVICE_NAME"
 Helm install $SERVICE_NAME deployment/ --set image.repository=$IMAGE_REPOSITORY,image.tag=$IMAGE_TAG,env.springProfile=$CURENT_ENV,env.postgresUN=$postgresUN,env.postgresPW=$postgresPW,env.postgresURL=$postgresURL

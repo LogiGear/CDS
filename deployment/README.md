@@ -37,7 +37,7 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/cont
 
 ## Publishing image to Docker Hub
 
-###### Build Docker Image for Backend
+###### Build and Push Docker Image for Backend
 
 Go to working files
 
@@ -48,7 +48,7 @@ cd be/
 Build Docker Image
 
 ```bash
-docker build --rm -t $USERHUB/{your-docker-image-name}:$TAG_VERSION --no-cache -f Dockerfile .
+. DockerAction.sh -u="Docker Hub Account" -t="Tag Version of Docker Image"
 ```
 
 ---
@@ -56,61 +56,32 @@ docker build --rm -t $USERHUB/{your-docker-image-name}:$TAG_VERSION --no-cache -
 *For example:*
 
 ```bash
-docker build --rm -t $USERHUB/authentication-service:$TAG_VERSION --no-cache -f Dockerfile .
+. DockerAction.sh -u=user -t=latest
 ```
 
-```bash
-docker build --rm -t $USERHUB/employees-service:$TAG_VERSION --no-cache -f Dockerfile .
-```
-
-```bash
-docker build --rm -t $USERHUB/admin-service:$TAG_VERSION --no-cache -f Dockerfile .
-```
-
-```bash
-docker build --rm -t $USERHUB/manager-service:$TAG_VERSION --no-cache -f Dockerfile .
-```
-
-Input Required!
-
-| Name         | Description                   |
-| ------------ | ----------------------------- |
-| $USERHUB     | Username of DockerHub account |
-| $TAG_VERSION | Tag version of your image     |
-
-Push image into Docker Hub
-
-```bash
-docker push $USERHUB/{your-docker-image-name}:$TAG_VERSION
-```
-
-###### Build Docker Image for Frontend
+###### Build  and Push Docker Image for Frontend
 
 ```bash
 cd fe/web
-npm cache clean --force
-npm install --force
-npm run build
-docker build --rm -t $USERHUB/client-service:$TAG_VERSION --build-arg EXPOSE_PORT=3000 --no-cache -f Dockerfile .
-docker push $USERHUB/client-service:$TAG_VERSION
+. DockerAction.sh -u="Docker Hub Account" -t="Tag Version of Docker Image"
 ```
 
 ```bash
 #Script build all service image
 #from root Folder
 cd deployment
-sh DockerAction.sh
+. DockerAction.sh -u="Docker Hub Account" -t="Tag Version of Docker Image"
 ```
-
+> You can use Deploy_script.sh in service-folder to auto create and push image
+#### Using Docker_ALl_Service.sh to build all service image
+```bash
+cd deployment
+docker push $USERHUB/{your-docker-image-name}:$TAG_VERSION
+```
 | name          | Description                   |
 |:------------- | ----------------------------- |
-| \*\*\_SERVICE | name of service               |
-| DIR\_\*\*     | Dir folder of service         |
-| TAG_VERSION   | Tag version of your image     |
-| USERHUB       | Username of DockerHub account |
-
-> You can use Deploy_script.sh in service-folder to auto create and push image
-
+| -u            | Tag version of your image     |
+| -t            | Username of DockerHub account |
 ## Hyperscale Evaluation
 
 Helm is a package manager for Kubernetes that can be used to deploy and manage a scale-out distributed system.
@@ -130,7 +101,7 @@ To init and generate a database please follow these steps
 ```bash
 #From root Folder
 cd deployment
-helm install postgresql-statefull postgresql/
+. HelmAction.sh -u="Docker Hub Account" -t="Tag Version of Docker Image"
 ```
 
 ###### Helm Deployment
@@ -184,21 +155,16 @@ employees-service-69dccf58b-xb2c2        1/1     Running            0          3
 manager-service-85c77b97d4-h5w5t         1/1     Running            0          3m6s
 postgresql-statefull-postgresql-0        1/1     Running            0          3m12s
 ```
-
-> <mark>For fast, you can use script i created in the deployment folder</mark>
-
-```bash
-#Script install all Helm Chart
-cd deployment
-sh HelmInstall.sh
-```
-
 ## Helm Cleanup
 
 ```bash
 helm uninstall {chart-name}
 ```
-
+or using
+```bash
+cd deployment
+. Helm_Uninstall_All_Service.sh
+```
 ## Running CDS
 
 If everything has been set up correctly, you'll now be able to navigate to ingress nginx.
