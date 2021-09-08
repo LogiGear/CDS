@@ -1,7 +1,6 @@
-package com.logigear.crm.employees.security;
+package com.logigear.crm.admins.security;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -11,9 +10,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.logigear.crm.employees.util.MessageQueueAmongClasses;
-import lombok.SneakyThrows;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.logigear.crm.admins.exception.JWTException;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,7 +22,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.logigear.crm.employees.exception.JWTException;
+import lombok.SneakyThrows;
 
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
@@ -48,7 +46,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 Pattern.compile(".*/v2/api-docs.*$"),
                 Pattern.compile(".*/swagger-resources.*$") };
         String path = request.getRequestURI();
-        if (actuator_pattern.matcher(path).matches()||
+        if (actuator_pattern.matcher(path).matches() ||
                 Arrays.stream(swagger_pattern).anyMatch(pattern -> pattern.matcher(path).matches())) {
             filterChain.doFilter(request, response);
             return;
@@ -58,20 +56,21 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         try {
             if (tokenProvider.validateToken(jwt) && SecurityContextHolder.getContext().getAuthentication() == null) {
-                MessageQueueAmongClasses.employeeIdForFileService = tokenProvider.getUserIdFromToken(jwt);
                 String email = tokenProvider.getEmailFromToken(jwt);
                 List<String> roles = tokenProvider.getRolesFromToken(jwt);
                 UserDetails userDetails = User.withUsername(email).password("").roles(roles.toArray(new String[roles.size()])).build();
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authentication);
+
             }
+
         } catch (JWTException ex) {
-            logger.error("Invalid JWT signature");
-            response.setStatus(HttpStatus.BAD_REQUEST.value());
-            response.setContentType("application/json");
-            response.getWriter().write(ex.getMessage());
-            return;
+                logger.error("Invalid JWT signature");
+                response.setStatus(HttpStatus.BAD_REQUEST.value());
+                response.setContentType("application/json");
+                response.getWriter().write(ex.getMessage());
+                return;
         }
         filterChain.doFilter(request, response);
     }
