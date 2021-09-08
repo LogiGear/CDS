@@ -14,7 +14,7 @@ for i in "$@"; do
 done
 echo "Current Using: $USERHUB - $IMAGE_TAG"
 # Name of service
-SERVICE_NAME="cdo-webclient"
+SERVICE_NAME="client-service"
 # Tag version of Docker Image
 IMAGE_TAG="latest"
 # Tag version of Helm Chart (Deployment)
