@@ -17,6 +17,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -33,9 +34,17 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @SneakyThrows({ServletException.class, IOException.class})
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) {
         Pattern actuator_pattern = Pattern.compile("^/actuator.*");
+        Pattern[] swagger_pattern = { Pattern.compile(".*/authenticate.*$"),
+                Pattern.compile(".*/api-docs.*$"),
+                Pattern.compile(".*/swagger-ui.*$"),
+                Pattern.compile(".*/swagger-ui\\.html.*$"),
+                Pattern.compile(".*/swagger-ui.*$"),
+                Pattern.compile(".*/v3/api-docs.*$"),
+                Pattern.compile(".*/v2/api-docs.*$"),
+                Pattern.compile(".*/swagger-resources.*$") };
         String path = request.getRequestURI();
-        if (actuator_pattern.matcher(path).matches()) {
-
+        if (actuator_pattern.matcher(path).matches()||
+                Arrays.stream(swagger_pattern).anyMatch(pattern -> pattern.matcher(path).matches())) {
             filterChain.doFilter(request, response);
             return;
         }

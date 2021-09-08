@@ -1,6 +1,8 @@
 package com.logigear.crm.employees.security;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -9,9 +11,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.logigear.crm.employees.exception.JWTException;
 import com.logigear.crm.employees.util.MessageQueueAmongClasses;
-
+import lombok.SneakyThrows;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,7 +24,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import lombok.SneakyThrows;
+import com.logigear.crm.employees.exception.JWTException;
 
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
@@ -37,10 +39,17 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @SneakyThrows({ServletException.class, IOException.class})
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) {
         Pattern actuator_pattern = Pattern.compile("^/actuator.*");
-        Pattern swagger_pattern = Pattern.compile("^[/swagger-ui].*");
+        Pattern[] swagger_pattern = { Pattern.compile(".*/authenticate.*$"),
+                Pattern.compile(".*/api-docs.*$"),
+                Pattern.compile(".*/swagger-ui.*$"),
+                Pattern.compile(".*/swagger-ui\\.html.*$"),
+                Pattern.compile(".*/swagger-ui.*$"),
+                Pattern.compile(".*/v3/api-docs.*$"),
+                Pattern.compile(".*/v2/api-docs.*$"),
+                Pattern.compile(".*/swagger-resources.*$") };
         String path = request.getRequestURI();
-        if (actuator_pattern.matcher(path).matches()) {
-
+        if (actuator_pattern.matcher(path).matches()||
+                Arrays.stream(swagger_pattern).anyMatch(pattern -> pattern.matcher(path).matches())) {
             filterChain.doFilter(request, response);
             return;
         }
@@ -48,10 +57,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String jwt = getJwtFromRequest(request);
 
         try {
-            if(swagger_pattern.matcher(path).matches()){
-                filterChain.doFilter(request, response);
-                return;
-            }
             if (tokenProvider.validateToken(jwt) && SecurityContextHolder.getContext().getAuthentication() == null) {
                 MessageQueueAmongClasses.employeeIdForFileService = tokenProvider.getUserIdFromToken(jwt);
                 String email = tokenProvider.getEmailFromToken(jwt);
